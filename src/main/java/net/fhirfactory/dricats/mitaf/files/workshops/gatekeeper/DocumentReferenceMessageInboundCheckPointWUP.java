@@ -22,7 +22,7 @@
 package net.fhirfactory.dricats.mitaf.files.workshops.gatekeeper;
 
 import net.fhirfactory.dricats.mitaf.files.workshops.gatekeeper.beans.DocumentReferencePolicyEnforcementPoint;
-import net.fhirfactory.pegacorn.core.constants.systemwide.PegacornReferenceProperties;
+import net.fhirfactory.pegacorn.core.constants.systemwide.DRICaTSReferenceProperties;
 import net.fhirfactory.pegacorn.core.interfaces.topology.WorkshopInterface;
 import net.fhirfactory.pegacorn.core.model.dataparcel.DataParcelManifest;
 import net.fhirfactory.pegacorn.core.model.dataparcel.DataParcelTypeDescriptor;
@@ -48,7 +48,7 @@ public class DocumentReferenceMessageInboundCheckPointWUP extends MOAStandardWUP
     private PolicyEnforcementWorkshop policyEnforcementWorkshop;
 
     @Inject
-    private PegacornReferenceProperties referenceProperties;
+    private DRICaTSReferenceProperties referenceProperties;
 
     @Inject
     private FHIRElementTopicFactory fhirTopicFactory;

@@ -23,15 +23,14 @@ package net.fhirfactory.dricats.mitaf.files.workshops.interact;
 
 import net.fhirfactory.dricats.mitaf.files.common.MITaFFilesNames;
 import net.fhirfactory.dricats.mitaf.files.workshops.interact.beans.FileReadActivity;
-import net.fhirfactory.pegacorn.core.interfaces.topology.PetasosEndpointContainerInterface;
 import net.fhirfactory.pegacorn.core.interfaces.topology.WorkshopInterface;
 import net.fhirfactory.pegacorn.core.model.dataparcel.DataParcelManifest;
 import net.fhirfactory.pegacorn.core.model.dataparcel.DataParcelTypeDescriptor;
 import net.fhirfactory.pegacorn.core.model.petasos.wup.valuesets.WUPArchetypeEnum;
 import net.fhirfactory.pegacorn.core.model.topology.endpoints.file.FileShareSourceTopologyEndpoint;
-import net.fhirfactory.pegacorn.petasos.core.moa.endpointcontainers.AsynchronousActivityEndpointContainer;
-import net.fhirfactory.pegacorn.petasos.core.moa.wup.AsynchronousTaskingCapableInteractWUPTemplate;
+import net.fhirfactory.pegacorn.petasos.core.moa.wup.MessageBasedWUPEndpointContainer;
 import net.fhirfactory.pegacorn.workshops.InteractWorkshop;
+import net.fhirfactory.pegacorn.wups.archetypes.petasosenabled.messageprocessingbased.InteractIngresMessagingGatewayWUP;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
-public class InteractFileReaderWUP extends AsynchronousTaskingCapableInteractWUPTemplate {
+public class InteractFileReaderWUP extends InteractIngresMessagingGatewayWUP {
     private static final Logger LOG = LoggerFactory.getLogger(InteractFileReaderWUP.class);
 
     private static final String WUP_VERSION="1.0.0";
@@ -121,9 +120,9 @@ public class InteractFileReaderWUP extends AsynchronousTaskingCapableInteractWUP
     }
 
     @Override
-    protected PetasosEndpointContainerInterface specifyIngresEndpoint() {
+    protected MessageBasedWUPEndpointContainer specifyIngresEndpoint() {
         getLogger().debug(".specifyIngresEndpoint(): Entry");
-        AsynchronousActivityEndpointContainer ingresEndpoint = new AsynchronousActivityEndpointContainer();
+        MessageBasedWUPEndpointContainer ingresEndpoint = new MessageBasedWUPEndpointContainer();
         ingresEndpoint.setFrameworkEnabled(false);
 
         FileShareSourceTopologyEndpoint fileReaderEndpoint = (FileShareSourceTopologyEndpoint) getTopologyEndpoint("file-reader");
@@ -336,7 +335,22 @@ public class InteractFileReaderWUP extends AsynchronousTaskingCapableInteractWUP
     }
 
     @Override
-    protected PetasosEndpointContainerInterface specifyEgressEndpoint() {
+    protected MessageBasedWUPEndpointContainer specifyEgressEndpoint() {
+        return null;
+    }
+
+    @Override
+    protected String specifyIngresTopologyEndpointName() {
+        return null;
+    }
+
+    @Override
+    protected String specifyIngresEndpointVersion() {
+        return null;
+    }
+
+    @Override
+    protected String specifyEndpointParticipantName() {
         return null;
     }
 
